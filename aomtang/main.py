@@ -4,14 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.secret_key = "password"
-app.permanent_session_lifetime = timedelta(minutes=5)
+# app.permanent_session_lifetime = timedelta(minutes=5)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://user.sqlite3'
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
-class users(db.ModeL):
+class users(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column("name", db.String(100))
     email = db.Column("email", db.String(100))
@@ -67,5 +67,6 @@ def logout():
     return redirect(url_for("login"))
 
 if __name__ == "__main__":
-    db.create_all()
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
