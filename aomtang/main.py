@@ -23,6 +23,10 @@ class users(db.Model):
 def hello_world():
     return render_template("/home_page/index.html")
 
+@app.route("/view")
+def view():
+    return render_template("/views_page/views.html", values=users.query.all())
+
 @app.route("/login", methods = ["POST", "GET"])
 def login(): 
     if request.method == "POST":
