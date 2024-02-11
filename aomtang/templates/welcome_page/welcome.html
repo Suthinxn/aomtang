@@ -1,0 +1,70 @@
+{% block content %}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.js"></script>
+    <link rel="stylesheet" href="/aomtang/static/style.css">
+</head>
+<body style="background-color: #232931;">
+    <div class="ui grid"
+        style="height: 20%;">
+        <div class="three column row">
+            <div class="column"></div>
+            <div class="column">
+            </div>
+            <div class="column"></div>
+        </div>
+    </div>
+    <div class="ui grid"
+        style="height: 60%;">
+        <div class="three column row">
+            <div class="column"></div>
+            <div class="column">
+            <div style="height: 30%;"></div>
+                <div style="text-align: center;
+                    vertical-align: middle;
+                    height: 40%;">
+                    <i class="donate icon" 
+                        style="visibility: visible;
+                        text-align: center;
+                        width: 100%;
+                        font-size: 200px;
+                        color: #4ECCA3;">
+                    </i>
+                </div>
+            <div style="height: 30%;">
+            <h1 style="text-align: center;
+                color: #EEEEEE;">
+                Welcome to Aomtang!
+            </h1>
+            <div style="text-align: center;">
+                <a href="{{url_for('home')}}">
+                    <button class="ui inverted green button"
+                        href="{{url_for('home')}}">
+                        Green
+                    </button>
+                </a>
+            </div>
+            </div>            
+            </div>
+            <div class="column"></div>
+        </div>
+    </div>       
+    <div class="ui grid"
+        style="height: 20%;">
+        <div class="three column row">
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}
