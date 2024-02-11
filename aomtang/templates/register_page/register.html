@@ -1,5 +1,35 @@
 {% extends "base.html" %}
 {% block title %}Register{% endblock %}
 {% block content %}
-<h1>Register</h1>
+<form class="ui form" method="POST" action="/register">
+    <h1>Register</h1>
+    <div class="field">
+      <label>First Name</label>
+      <input 
+            type="text" 
+            id="name"
+            name="name"  
+            placeholder="Name"
+        />
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input 
+            type="text" 
+            id="email"
+            name="email" 
+            placeholder="Email"
+        />
+    </div>
+    <div class="field">
+        <label>Password</label>
+        <input 
+              type="password" 
+              id="password"
+              name="password" 
+              placeholder="Password"
+        />
+    </div>
+    <button class="ui button" type="submit"> Submit </button>
+  </form>
 {% endblock %}
