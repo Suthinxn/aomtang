@@ -9,13 +9,15 @@
     <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.js"></script>
     <link rel="stylesheet" href="/aomtang/static/style.css">
   </head>
-<body>
-  <div class="ui inverted segment">
+<body style="background-color: #EEEEEE;">
+  <div class="ui inverted segment" style="background-color: #232931;">
     <div class="ui inverted secondary menu">
       <a class="item">
-        <i class="wallet icon" style="visibility: visible;"></i>
+        <i class="wallet icon" 
+        style="visibility: visible;"></i>
       </a>
-      <a class="item active">
+      <a class="item active"
+      href="{{url_for('home')}}">
         Home
       </a>
       <a class="item">
