@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html>
 <head>
     <title>{% block title %}{% endblock %}</title>
     <meta charset="UTF-8">
@@ -9,19 +7,20 @@
     <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.js"></script>
     <link rel="stylesheet" href="/aomtang/static/style.css">
   </head>
-<body style="background-color: #EEEEEE;">
-  <div class="ui inverted segment" style="background-color: #232931;">
+  <div class="ui inverted segment" style="background-color: #232931; margin: 0;">
     <div class="ui inverted secondary menu">
-      <a class="item">
+      <a class="item"
+      href="{{url_for('home')}}">
         <i class="wallet icon" 
         style="visibility: visible;"></i>
       </a>
-      <a class="item active"
+      <a class="item"
       href="{{url_for('home')}}">
         Home
       </a>
-      <a class="item">
-        Wallet
+      <a class="item"
+      href="{{url_for('news')}}">
+        News
       </a>
       <a class="item">
         Saving money
@@ -35,5 +34,3 @@
   </div>
     {% block content %}
     {% endblock %}
-</body>
-</html>
