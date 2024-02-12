@@ -1,16 +1,40 @@
 {% extends "base.html" %}
 {% block title %}Login Page{% endblock %}
 {% block content %}
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for msg in messages %}
-                <p>{{msg}}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-<form = action="#" method="post">
-    <p>Name:</p>
-    <p><input type="text" name="nm" /></p>
-    <p><input type="submit" value="submit" /></p>
-</form>
+<div class="ui grid">
+  <div class="three column row">
+    <div class="column"></div>
+    <div class="column">
+      <form class="ui form" method="POST" action="/login">
+        <div style="height: 20px;"></div>
+        <h1 style="text-align: center;">Login</h1>
+        <div class="field">
+          <label>Email</label>
+          <input 
+                type="text" 
+                id="email"
+                name="email"
+                aria-describedly="emailHelp"  
+                placeholder="Enter email"
+            />
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input 
+                type="password" 
+                id="password"
+                name="password" 
+                placeholder="Enter password"
+            />
+          </div>
+          <div>
+            <button class="fluid ui button" type="submit" style="background-color: #4ECCA3; color: #EEEEEE;">Register</button>
+          </div>
+      </form>
+  </div>
+  
+    </div>
+    <div class="column"></div>
+  </div>
+</div>
 {% endblock %}
