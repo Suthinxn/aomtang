@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.js"></script>
     <link rel="stylesheet" href="/aomtang/static/style.css">
 </head>
-<body style="background-color: #EEEEEE;">
+<body style="background-color: #393E46;">
 <div class="ui grid"
     style="height: 20%;">
     <div class="three column row">
@@ -20,16 +20,48 @@
     </div>
 </div>
 <div class="ui grid"
-    style="height: 60%;">
+    style="height: 60%;
+    background-color: #232931;
+    margin: 20px;">
     <div class="three column row">
         <div class="column"></div>
         <div class="column">
-            <div style="background-color: #232931;">
-
+            <div style="height: 10%;"></div>
+            <h1 style="text-align: center;
+            color: #EEEEEE;"> 
+            ยินดีต้อนรับ 
+            </h1>
+            <div style="height: 10%;"></div>
+            <div style="text-align: center;">
+                <h3 style="color: #EEEEEE;"> ยังไม่มีบัญชี? </h3>
+                <a href="{{url_for('register')}}">
+                    <button class="ui inverted button"
+                    style="width: 30%"> 
+                    Register 
+                </button>
+                </a>
+                <br>
             </div>
-        </div>            
+            <br>
+            <div>
+                <p style="color: #EEEEEE;
+                text-align: center;"> 
+                หรือ
+                </p>                
+            </div>
+            <br>
+            <div style="text-align: center;">
+                <h3 style="color: #EEEEEE;"> มีบัญชีอยู่แล้ว </h3>
+                <a href="{{url_for('login')}}">
+                    <button class="ui inverted green button"
+                    style="width: 30%;"> 
+                    Login 
+                    </button>
+                </a>
+            </div>
+        </div>
         <div class="column"></div>
-    </div>
+    </div>            
 </div>
 <div class="ui grid"
     style="height: 20%;">
