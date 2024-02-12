@@ -101,6 +101,9 @@ def login_or_register():
 def news():
     return render_template("/news_page/news.html")
 
+@app.route("/income_and_expense")
+def income_expense():
+    return render_template("/income_expense_page/income_expense.html")
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
