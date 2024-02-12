@@ -108,6 +108,11 @@ def income_expense():
 @app.route("/saving")
 def saving():
     return render_template("/saving_page/saving.html")
+
+@app.route("/profile")
+def profile():
+    return render_template("/profile_page/profile.html")
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
