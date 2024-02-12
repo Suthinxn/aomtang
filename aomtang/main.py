@@ -104,6 +104,10 @@ def news():
 @app.route("/income_and_expense")
 def income_expense():
     return render_template("/income_expense_page/income_expense.html")
+
+@app.route("/saving")
+def saving():
+    return render_template("/saving_page/saving.html")
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
