@@ -14,14 +14,20 @@ class users(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column("name", db.String(100))
     email = db.Column("email", db.String(100))
+    password = db.Column("password", db.String(100))
 
-    def __init__(self, name, email):
+    def __init__(self, name, email, password):
         self.name = name
         self.email = email
+        self.password = password
 
 @app.route("/")
-def hello_world():
-    return render_template("/home_page/index.html")
+def welcome():
+    return render_template("/welcome_page/welcome.html")
+
+@app.route("/home")
+def home():
+    return render_template("/home_page/home.html")
 
 @app.route("/view")
 def view():
@@ -81,6 +87,19 @@ def logout():
     session.pop("user", None)
     session.pop("email", None)
     return redirect(url_for("login"))
+
+@app.route("/register")
+def register():
+    return render_template("/register_page/register.html")
+
+@app.route("/login_or_register")
+def login_or_register():
+    return render_template("/login_or_register_page/login_or_register.html")\
+    
+
+@app.route("/news")
+def news():
+    return render_template("/news_page/news.html")
 
 if __name__ == "__main__":
     with app.app_context():
