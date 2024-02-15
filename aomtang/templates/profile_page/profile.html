@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}User{% endblock %}
+{% block content %}
+<br>
+<div style="background-color: #232931;
+            width: 900px;
+            margin: auto;
+            height: 500px;">
+    <br>
+    <h1 style= "text-align: center;
+                color: #4ECCA3;"> Hello, How are you? </h1>
+    <br>
+    <div style="width: 100px;
+                margin: auto;">
+        <a href="{{url_for('logout')}}" >
+            <button class="negative ui button">Log Out</button>    
+        </a>
+    </div>
+    
+</div>
+{% endblock %}
