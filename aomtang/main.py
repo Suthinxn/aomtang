@@ -119,6 +119,27 @@ def income_expense():
 def saving():
     return render_template("/saving_page/saving.html")
 
+@app.route("/dashboard")
+def dashboard():
+        labels = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        ]
+ 
+        data = [0, 10, 15, 8, 22, 18, 25]
+ 
+    # Return the components to the HTML template 
+        return render_template(
+            template_name_or_list="/dashboard_page/dashboard.html",
+            data=data,
+            labels=labels,
+        )
+    # return render_template("/dashboard_page/dashboard.html")
+
 
 if __name__ == "__main__":
     with app.app_context():
