@@ -9,8 +9,8 @@ aomtang
 |__ aomtang
 |    |
 |    |__ templates
-|    |			|__ folder
-|    |						|__file.html
+|    |		|__ folder
+|    |			|__file.html
 |    |
 |    |__ main.py
 |    
@@ -18,6 +18,7 @@ aomtang
 |__ requirements.txt
 |__ .gitignore
 ```
+
 
 
 **How to install**
@@ -68,6 +69,7 @@ python main.py
 
 ## Creator
 name : Suthinan Rongphon
+
 Student ID : 6610110341
 
 
