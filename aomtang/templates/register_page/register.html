@@ -5,27 +5,29 @@
   <div class="three column row">
     <div class="column"></div>
     <div class="column">
-      <form class="ui form" method="POST" action="/register">
+      <form class="ui form" method="POST" action="">
         <div style="height: 20px;"></div>
         <h1 style="text-align: center;">Register</h1>
         <div class="field">
           <label>Name</label>
-          <input 
+          {{ form.hidden_tag() }}
+          {{ form.username }}
+          <!-- <input 
                 type="text" 
-                id="name"
-                name="name"
+                name="nm"
                 aria-describedly="emailHelp"  
                 placeholder="Enter email"
-            />
-          <label>Email</label>
-          <input 
+            /> -->
+          <label>Password</label>
+          {{ form.password }}
+          <!-- <input 
                 type="text" 
                 id="email"
                 name="email"
                 aria-describedly="emailHelp"  
                 placeholder="Enter email"
-            />
-        </div>
+            /> -->
+        <!-- </div>
         <div class="field">
           <label>Password</label>
           <input 
@@ -34,10 +36,12 @@
                 name="password" 
                 placeholder="Enter password"
             />
-          </div>
-          <div>
-            <button class="fluid ui button" type="submit" style="background-color: #4ECCA3; color: #EEEEEE;">Login</button>
-          </div>
+          </div> -->
+          <div style="height: 10px;"></div>
+          {{ form.submit(class="fluid ui button" ) }}
+          <!-- <div>
+            <button class="fluid ui button" type="submit" value="submit" style="background-color: #4ECCA3; color: #EEEEEE;">Login</button>
+          </div> -->
       </form>
   </div>
   
