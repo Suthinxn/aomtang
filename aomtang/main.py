@@ -1,25 +1,63 @@
 from flask import Flask, redirect, url_for, render_template, request , session, flash
-from datetime import timedelta
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import InputRequired, Length, ValidationError
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
+bcrypt = Bcrypt(app)
 app.secret_key = "password"
-app.permanent_session_lifetime = timedelta(minutes=5)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
 db = SQLAlchemy(app)
 
-class users(db.Model):
-    _id = db.Column("id", db.Integer, primary_key=True)
-    name = db.Column("name", db.String(100))
-    email = db.Column("email", db.String(100))
-    password = db.Column("password", db.String(100))
 
-    def __init__(self, name, email, password):
-        self.name = name
-        self.email = email
-        self.password = password
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), nullable=False, unique=True)
+    password = db.Column(db.String(80), nullable=False)
+
+
+class RegisterForm(FlaskForm):
+    username = StringField(validators=[
+                           InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+
+    password = PasswordField(validators=[
+                             InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
+
+    submit = SubmitField('Register')
+
+    def validate_username(self, username):
+        existing_user_username = User.query.filter_by(
+            username=username.data).first()
+        if existing_user_username:
+            raise ValidationError(
+                'That username already exists. Please choose a different one.')
+
+
+class LoginForm(FlaskForm):
+    username = StringField(validators=[
+                           InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+
+    password = PasswordField(validators=[
+                             InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
+
+    submit = SubmitField('Login')
 
 @app.route("/")
 def welcome():
@@ -29,74 +67,46 @@ def welcome():
 def home():
     return render_template("/home_page/home.html")
 
-@app.route("/view")
-def view():
-    return render_template("/views_page/views.html", values=users.query.all())
-
-@app.route("/login", methods = ["POST", "GET"])
-def login(): 
-    if request.method == "POST":
-        session.permanent = True
-        user = request.form["nm"]
-        session["user"] = user
-        
-        found_user = users.query.filter_by(name=user).first()
-        if found_user:
-            session["email"] = found_user.email
-
-        else:
-            usr = users(user, "")
-            db.session.add(usr)
-            db.session.commit()
-
-        flash("Login Succesful!")
-        return redirect(url_for("user"))
-    else:
-        if "user" in session:
-            flash("Already Logged In")
-            return redirect(url_for("user"))
-        return render_template("/login_page/login.html")
-
-@app.route("/user", methods =["POST", "GET"])
-def user(): 
-    email = None
-
-    if "user" in session:
-        user = session["user"]
-
-        if request.method == "POST":
-            email = request.form["email"]
-            session["email"] = email
-            found_user = users.query.filter_by(name=user).first()
-            found_user.email = email
-            db.session.commit()
-            flash("Email was save!")
-        else:
-            if "email" in session:
-                email = session["email"]
-
-
-        return render_template("/user_page/user.html", email = email)
-    flash("You are not logged in!")
-    return redirect(url_for("login"))
-
-@app.route("/logout")
-def logout():
-
-    flash("You have been logged out" "info")
-    session.pop("user", None)
-    session.pop("email", None)
-    return redirect(url_for("login"))
-
-@app.route("/register")
+@ app.route('/register', methods=['GET', 'POST'])
 def register():
-    return render_template("/register_page/register.html")
+    form = RegisterForm()
+
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data)
+        new_user = User(username=form.username.data, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        return redirect(url_for('login'))
+
+    return render_template("/register_page/register.html", form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user:
+            if bcrypt.check_password_hash(user.password, form.password.data):
+                login_user(user)
+                return redirect(url_for('home'))
+    return render_template("/login_page/login.html", form=form)
+
+
+@app.route('/logout', methods=['GET', 'POST'])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+@app.route("/profile")
+def profile(): 
+    return render_template("/profile_page/profile.html")
 
 @app.route("/login_or_register")
 def login_or_register():
     return render_template("/login_or_register_page/login_or_register.html")\
     
-
 @app.route("/news")
 def news():
     return render_template("/news_page/news.html")
@@ -109,9 +119,6 @@ def income_expense():
 def saving():
     return render_template("/saving_page/saving.html")
 
-@app.route("/profile")
-def profile():
-    return render_template("/profile_page/profile.html")
 
 if __name__ == "__main__":
     with app.app_context():
